@@ -23,7 +23,7 @@ def fetch_stock_data(tickers, start_date, end_date):
     return combined_data, errors
 
 # Streamlit UI
-st.title("Stock Data Downloader")
+st.title("Stock Data Downloader (Excel Format)")
 st.markdown(
     "Enter up to 10 ticker symbols, and this app will fetch the adjusted closing prices for the specified date range."
 )
@@ -54,13 +54,16 @@ else:
                 st.subheader("Stock Data Preview")
                 st.write(stock_data)
 
-                # Convert the DataFrame to CSV for download
-                csv_data = stock_data.to_csv(index=True, header=True)  # Ensure headers are included correctly
-                st.download_button(
-                    label="Download CSV",
-                    data=csv_data,
-                    file_name="stock_data.csv",
-                    mime="text/csv",
-                )
+                # Convert the DataFrame to Excel for download
+                output = pd.ExcelWriter('stock_data.xlsx', engine='openpyxl')
+                stock_data.to_excel(output, sheet_name='Stock Data', index=True)
+                output.save()
+                with open('stock_data.xlsx', 'rb') as file:
+                    st.download_button(
+                        label="Download Excel File",
+                        data=file,
+                        file_name="stock_data.xlsx",
+                        mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                    )
             else:
                 st.error("No valid data available for the selected tickers.")
