@@ -54,7 +54,9 @@ if st.button("Download Data"):
             combined_data = pd.DataFrame()
             for symbol in selected_symbols:
                 st.write(f"Fetching {data_type} for {symbol}...")
-                data = yf.download(symbol, start=start_date, end=end_date, progress=False)
+                data = yf.download(
+                    symbol, start=start_date, end=end_date + pd.Timedelta(days=1), progress=False
+                )
                 if not data.empty:
                     if data_type == "Closing Price":
                         combined_data[symbol] = data["Close"]
