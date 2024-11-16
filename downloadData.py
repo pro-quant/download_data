@@ -54,8 +54,8 @@ else:
                 st.subheader("Stock Data Preview")
                 st.write(stock_data)
 
-               # Convert the DataFrame to CSV for download
-                csv_data = stock_data.to_csv(index=True, index_label="Date")
+                # Convert the DataFrame to CSV for download
+                csv_data = stock_data.reset_index().to_csv(index=False)  # Reset index to avoid double header
                 st.download_button(
                     label="Download CSV",
                     data=csv_data,
