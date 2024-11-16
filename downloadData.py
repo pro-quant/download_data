@@ -1,6 +1,7 @@
 import streamlit as st
 import yfinance as yf
 import pandas as pd
+from datetime import datetime, timedelta
 
 # Title and description
 st.title("Stock Data Downloader")
@@ -44,19 +45,24 @@ data_type = st.radio(
 start_date = st.date_input("Start Date", value=pd.to_datetime("2020-01-01"))
 end_date = st.date_input("End Date", value=pd.to_datetime("2023-01-01"))
 
+# Convert to datetime objects
+start_date = datetime.combine(start_date, datetime.min.time())
+end_date = datetime.combine(end_date, datetime.min.time())
+
+# Add 1 day to end_date to ensure the range includes the end date
+end_date += timedelta(days=1)
+
 # Button to fetch data
 if st.button("Download Data"):
     if not selected_symbols:
         st.error("Please select at least one stock symbol.")
     else:
         try:
-            # Fetch data for all selected symbols
             combined_data = pd.DataFrame()
+
             for symbol in selected_symbols:
                 st.write(f"Fetching {data_type} for {symbol}...")
-                data = yf.download(
-                    symbol, start=start_date, end=end_date + pd.Timedelta(days=1), progress=False
-                )
+                data = yf.download(symbol, start=start_date, end=end_date, progress=False)
                 if not data.empty:
                     if data_type == "Closing Price":
                         combined_data[symbol] = data["Close"]
