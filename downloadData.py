@@ -1,69 +1,73 @@
 import streamlit as st
-import pandas as pd
 import yfinance as yf
-from datetime import datetime, timedelta
+import pandas as pd
 
-# Function to fetch stock data
-def fetch_stock_data(tickers, start_date, end_date):
-    data_frames = []
-    errors = []
-    for ticker in tickers:
-        try:
-            # Download adjusted close prices
-            df = yf.download(ticker, start=start_date, end=end_date, progress=False)[["Adj Close"]]
-            if df.empty:
-                errors.append(f"No data found for {ticker}.")
-            else:
-                df.rename(columns={"Adj Close": ticker}, inplace=True)
-                data_frames.append(df)
-        except Exception as e:
-            errors.append(f"Error fetching data for {ticker}: {e}")
-    # Combine all valid data into a single DataFrame
-    combined_data = pd.concat(data_frames, axis=1) if data_frames else None
-    return combined_data, errors
-
-# Streamlit UI
-st.title("Stock Data Downloader (Excel Format)")
-st.markdown(
-    "Enter up to 10 ticker symbols, and this app will fetch the adjusted closing prices for the specified date range."
+# Title and description
+st.title("Stock Data Downloader")
+st.write(
+    "Download stock market data for up to 10 symbols from Yahoo Finance, view it, and export it to CSV."
 )
 
-# Sidebar inputs
-st.sidebar.header("Input Parameters")
-tickers = st.sidebar.text_input("Enter up to 10 Ticker Symbols (comma-separated)", value="AAPL, MSFT, META")
-tickers = [ticker.strip().upper() for ticker in tickers.split(",")]
+# Default ticker symbols
+default_symbols = ["AAPL", "MSFT", "GOOGL", "AMZN", "TSLA"]
 
-if len(tickers) > 10:
-    st.error("Please enter no more than 10 ticker symbols.")
-else:
-    start_date = st.sidebar.date_input("Start Date", value=datetime.today() - timedelta(days=365 * 3))
-    end_date = st.sidebar.date_input("End Date", value=datetime.today())
+# Symbol selection
+st.write("### Select Symbols")
+selected_symbols = st.multiselect(
+    "Choose stock symbols from the defaults or enter custom symbols below:",
+    options=default_symbols,
+    default=default_symbols[:2],
+)
+custom_symbols = st.text_area(
+    "Enter up to 10 custom symbols (comma-separated):",
+    "",
+    placeholder="e.g., FB, NFLX, NVDA",
+)
+custom_symbols_list = [sym.strip().upper() for sym in custom_symbols.split(",") if sym.strip()]
+all_symbols = selected_symbols + custom_symbols_list
+all_symbols = list(set(all_symbols))  # Remove duplicates
 
-    if st.button("Fetch Data"):
-        with st.spinner("Fetching stock data..."):
-            stock_data, errors = fetch_stock_data(tickers, start_date, end_date)
+if len(all_symbols) > 10:
+    st.error("You can select a maximum of 10 symbols. Please adjust your input.")
 
-            # Display any errors
-            if errors:
-                st.warning("The following issues occurred while fetching data:")
-                for error in errors:
-                    st.warning(error)
+# Date inputs for the start and end dates
+start_date = st.date_input("Start Date", value=pd.to_datetime("2020-01-01"))
+end_date = st.date_input("End Date", value=pd.to_datetime("2023-01-01"))
 
-            # Display fetched data
-            if stock_data is not None:
-                st.subheader("Stock Data Preview")
-                st.write(stock_data)
+# Button to fetch data
+if st.button("Download Data"):
+    if not all_symbols:
+        st.error("Please select at least one stock symbol.")
+    else:
+        try:
+            # Fetch data for all symbols
+            all_data = {}
+            for symbol in all_symbols:
+                st.write(f"Fetching data for {symbol}...")
+                data = yf.download(symbol, start=start_date, end=end_date)
+                if not data.empty:
+                    all_data[symbol] = data
+                else:
+                    st.warning(f"No data found for {symbol}.")
 
-                # Convert the DataFrame to Excel for download
-                output = pd.ExcelWriter('stock_data.xlsx', engine='openpyxl')
-                stock_data.to_excel(output, sheet_name='Stock Data', index=True)
-                output.save()
-                with open('stock_data.xlsx', 'rb') as file:
-                    st.download_button(
-                        label="Download Excel File",
-                        data=file,
-                        file_name="stock_data.xlsx",
-                        mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-                    )
+            if all_data:
+                # Combine data into one DataFrame
+                combined_data = pd.concat(all_data, axis=1)
+                st.write("### Data Preview")
+                st.write("#### Head:")
+                st.dataframe(combined_data.head())
+                st.write("#### Tail:")
+                st.dataframe(combined_data.tail())
+
+                # Convert combined data to CSV
+                csv_data = combined_data.to_csv().encode("utf-8")
+                st.download_button(
+                    label="Download CSV",
+                    data=csv_data,
+                    file_name="stock_data.csv",
+                    mime="text/csv",
+                )
             else:
-                st.error("No valid data available for the selected tickers.")
+                st.error("No valid data fetched. Please check your symbols and date range.")
+        except Exception as e:
+            st.error(f"An error occurred: {e}")
