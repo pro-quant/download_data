@@ -30,6 +30,10 @@ all_symbols = list(set(all_symbols))  # Remove duplicates
 if len(all_symbols) > 10:
     st.error("You can select a maximum of 10 symbols. Please adjust your input.")
 
+# Data type selection: Adjusted Close or Close
+st.write("### Select Data Type")
+data_type = "Adj Close" if st.checkbox("Fetch Adjusted Closing Price", value=True) else "Close"
+
 # Date inputs for the start and end dates
 start_date = st.date_input("Start Date", value=pd.to_datetime("2020-01-01"))
 end_date = st.date_input("End Date", value=pd.to_datetime("2023-01-01"))
@@ -43,16 +47,16 @@ if st.button("Download Data"):
             # Fetch data for all symbols
             all_data = {}
             for symbol in all_symbols:
-                st.write(f"Fetching data for {symbol}...")
+                st.write(f"Fetching {data_type} data for {symbol}...")
                 data = yf.download(symbol, start=start_date, end=end_date)
                 if not data.empty:
-                    all_data[symbol] = data
+                    all_data[symbol] = data[data_type]
                 else:
                     st.warning(f"No data found for {symbol}.")
 
             if all_data:
                 # Combine data into one DataFrame
-                combined_data = pd.concat(all_data, axis=1)
+                combined_data = pd.DataFrame(all_data)
                 st.write("### Data Preview")
                 st.write("#### Head:")
                 st.dataframe(combined_data.head())
