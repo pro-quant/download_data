@@ -33,6 +33,18 @@ selected_symbols = st.multiselect(
     max_selections=10,
 )
 
+# Input for custom tickers
+custom_tickers = st.text_input(
+    "Enter additional ticker symbols (comma-separated, e.g., FB, NFLX, NVDA):",
+    "",
+)
+custom_symbols_list = [sym.strip().upper() for sym in custom_tickers.split(",") if sym.strip()]
+all_symbols = list(set(selected_symbols + custom_symbols_list))
+
+# Validate symbol count
+if len(all_symbols) > 10:
+    st.error("You can select a maximum of 10 symbols. Please adjust your input.")
+
 # Data type selection: Closing Price or Adjusted Closing Price
 st.write("### Select Data Type")
 data_type = st.radio(
@@ -54,13 +66,13 @@ end_date += timedelta(days=1)
 
 # Button to fetch data
 if st.button("Download Data"):
-    if not selected_symbols:
-        st.error("Please select at least one stock symbol.")
+    if not all_symbols:
+        st.error("Please select or enter at least one stock symbol.")
     else:
         try:
             combined_data = pd.DataFrame()
 
-            for symbol in selected_symbols:
+            for symbol in all_symbols:
                 st.write(f"Fetching {data_type} for {symbol}...")
                 data = yf.download(symbol, start=start_date, end=end_date, progress=False)
                 if not data.empty:
