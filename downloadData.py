@@ -55,13 +55,12 @@ else:
                 st.write(stock_data)
 
                 # Convert the DataFrame to CSV for download
-                csv_data = stock_data.to_csv(index=True)  # Only the actual data is included
+                csv_data = stock_data.to_csv(index=True, header=True)  # Ensure headers are included correctly
                 st.download_button(
                     label="Download CSV",
                     data=csv_data,
                     file_name="stock_data.csv",
                     mime="text/csv",
                 )
-
             else:
                 st.error("No valid data available for the selected tickers.")
