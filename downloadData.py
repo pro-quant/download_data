@@ -6,19 +6,21 @@ from datetime import datetime, timedelta
 # Function to fetch stock data
 def fetch_stock_data(tickers, start_date, end_date):
     data_frames = []
+    errors = []
     for ticker in tickers:
         try:
+            # Download adjusted close prices
             df = yf.download(ticker, start=start_date, end=end_date, progress=False)[["Adj Close"]]
             if df.empty:
-                st.warning(f"No data found for {ticker}. Check the ticker symbol or adjust the date range.")
+                errors.append(f"No data found for {ticker}.")
             else:
                 df.rename(columns={"Adj Close": ticker}, inplace=True)
                 data_frames.append(df)
         except Exception as e:
-            st.error(f"Error fetching data for {ticker}: {e}")
-    if not data_frames:
-        return None
-    return pd.concat(data_frames, axis=1)
+            errors.append(f"Error fetching data for {ticker}: {e}")
+    # Combine all valid data into a single DataFrame
+    combined_data = pd.concat(data_frames, axis=1) if data_frames else None
+    return combined_data, errors
 
 # Streamlit UI
 st.title("Stock Data Downloader")
@@ -39,8 +41,15 @@ else:
 
     if st.button("Fetch Data"):
         with st.spinner("Fetching stock data..."):
-            stock_data = fetch_stock_data(tickers, start_date, end_date)
+            stock_data, errors = fetch_stock_data(tickers, start_date, end_date)
 
+            # Display any errors
+            if errors:
+                st.warning("The following issues occurred while fetching data:")
+                for error in errors:
+                    st.warning(error)
+
+            # Display fetched data
             if stock_data is not None:
                 st.subheader("Stock Data Preview")
                 st.write(stock_data)
@@ -53,3 +62,5 @@ else:
                     file_name="stock_data.csv",
                     mime="text/csv",
                 )
+            else:
+                st.error("No valid data available for the selected tickers.")
