@@ -51,18 +51,20 @@ if st.button("Download Data"):
     else:
         try:
             # Fetch data for all selected symbols
-            all_data = {}
+            combined_data = pd.DataFrame()
             for symbol in selected_symbols:
                 st.write(f"Fetching {data_type} for {symbol}...")
                 data = yf.download(symbol, start=start_date, end=end_date, progress=False)
-                if data_type == "Closing Price":
-                    all_data[symbol] = data["Close"]
-                elif data_type == "Adjusted Closing Price":
-                    all_data[symbol] = data["Adj Close"]
+                if not data.empty:
+                    if data_type == "Closing Price":
+                        combined_data[symbol] = data["Close"]
+                    elif data_type == "Adjusted Closing Price":
+                        combined_data[symbol] = data["Adj Close"]
+                else:
+                    st.warning(f"No data found for {symbol}.")
 
-            if all_data:
-                # Combine data into one DataFrame
-                combined_data = pd.DataFrame(all_data)
+            if not combined_data.empty:
+                combined_data.index.name = "Date"  # Set index name for clarity
                 st.write("### Data Preview")
                 st.write("#### Head:")
                 st.dataframe(combined_data.head())
