@@ -309,7 +309,7 @@ if st.button("Download Data"):
 
 # Code snippet for users
 st.write("### How to Read the Downloaded File in Python")
-st.write("This code will read the downloaded excel file FROM the downloaded folder")
+st.write('This code will read the downloaded excel file FROM the "Downloads" folder')
 code_snippet = """
 import os
 import pandas as pd
