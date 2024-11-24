@@ -357,8 +357,8 @@ r_code_snippet = """
 # Load necessary library
 library(readxl)
 
-# Default path to the Downloads folder (update if needed)
-downloads_folder <- file.path("~", "Downloads")
+# Default path to the Downloads folder (expand user path for Windows)
+downloads_folder <- file.path(Sys.getenv("USERPROFILE"), "Downloads")  # Use USERPROFILE on Windows
 file_path <- file.path(downloads_folder, "stock_data.xlsx")
 
 # Read the Excel file into a data frame
@@ -366,6 +366,7 @@ df <- read_excel(file_path)
 
 # Display the first few rows
 print(head(df))
+
 """
 st.code(r_code_snippet, language="r")
 
