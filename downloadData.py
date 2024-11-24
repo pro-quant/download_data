@@ -307,32 +307,15 @@ if st.button("Download Data"):
                 st.error(
                     "No valid data fetched. Please check your symbols and date range.")
 
+
+
+
+####
 # Code snippet for users
-st.write("### How to Read the Downloaded File in Python")
-st.write('This code will read the downloaded excel file FROM the "Downloads" folder')
-code_snippet = """
-import os
-import pandas as pd
-
-# Default path to the Downloads folder (update if needed)
-downloads_folder = os.path.join(os.path.expanduser("~"), "Downloads")
-file_path = os.path.join(downloads_folder, "stock_data.xlsx")
-
-# Read the Excel file into a DataFrame
-df = pd.read_excel(file_path)
-
-# Display the first few rows
-print(df.head())
-"""
-st.code(code_snippet, language="python")
-
-
-
-# Code snippet for users
-st.write("## How to Read the Downloaded File in Python and R")
+st.write("### How to Read the Downloaded File in Python and R")
 
 # Python Section
-st.write("### Python: Read the Downloaded Excel File")
+st.write("#### Python: Read the Downloaded Excel File")
 st.write('This code reads the downloaded Excel file FROM the "Downloads" folder:')
 python_code_snippet = """
 import os
@@ -351,7 +334,7 @@ print(df.head())
 st.code(python_code_snippet, language="python")
 
 # R Section
-st.write("### R: Read the Downloaded Excel File")
+st.write("#### R: Read the Downloaded Excel File")
 st.write('This code reads the downloaded Excel file FROM the "Downloads" folder:')
 r_code_snippet = """
 # Load necessary library
