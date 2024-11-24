@@ -341,7 +341,7 @@ r_code_snippet = """
 library(readxl)
 
 # Default path to the Downloads folder (expand user path for Windows)
-downloads_folder <- file.path(Sys.getenv("USERPROFILE"), "Downloads")  # Use USERPROFILE on Windows
+downloads_folder <- file.path(Sys.getenv("USERPROFILE"), "Downloads")
 file_path <- file.path(downloads_folder, "stock_data.xlsx")
 
 # Read the Excel file into a data frame
