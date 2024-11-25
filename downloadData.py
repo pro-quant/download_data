@@ -56,7 +56,6 @@ tickers = {
     "SPOT": "Spotify Technology S.A.",
     "UBER": "Uber Technologies Inc.",
     "LYFT": "Lyft Inc.",
-    "TWTR": "Twitter Inc.",
     "SNAP": "Snap Inc.",
     "SHOP": "Shopify Inc.",
     "ETSY": "Etsy Inc.",
@@ -79,7 +78,6 @@ tickers = {
     "OKTA": "Okta Inc.",
     "TEAM": "Atlassian Corporation Plc",
     "PANW": "Palo Alto Networks Inc.",
-    "SPLK": "Splunk Inc.",
     "NOW": "ServiceNow Inc.",
     "WDAY": "Workday Inc.",
     "F": "Ford Motor Company",
@@ -101,17 +99,16 @@ tickers = {
     "STX": "Seagate Technology Holdings Plc",
     "WDC": "Western Digital Corporation",
     "ADSK": "Autodesk Inc.",
-    "EA": "Electronic Arts Inc.",
-    "ATVI": "Activision Blizzard Inc.",
     "TTWO": "Take-Two Interactive Software Inc.",
     "SONY": "Sony Group Corporation",
     "NTDOY": "Nintendo Co. Ltd.",
     "CDNS": "Cadence Design Systems Inc.",
     "SNPS": "Synopsys Inc.",
     "ANSS": "ANSYS Inc.",
+    "AVPT": "AvePoint, Inc.",
+    # swedish stocks
     "ERIC-B.ST": "Ericsson (Telefonaktiebolaget L M Ericsson)",
     "VOLV-B.ST": "AB Volvo",
-    "HMB.ST": "Hennes & Mauritz AB",
     "SAND.ST": "Sandvik AB",
     "ATCO-A.ST": "Atlas Copco AB",
     "ATCO-B.ST": "Atlas Copco AB Series B",
@@ -135,13 +132,10 @@ tickers = {
     "SWED-A.ST": "Swedbank AB",
     "TEL2-B.ST": "Tele2 AB",
     "TELIA.ST": "Telia Company AB",
-    "TRATON.ST": "Traton SE",
-    "WALL-B.ST": "Wallenius Wilhelmsen ASA",
     "ABB.ST": "ABB Ltd.",
     "AZN.ST": "AstraZeneca PLC",
     "EQT.ST": "EQT AB",
     "SECU-B.ST": "Securitas AB",
-    "SCAB.ST": "Scandinavian Tobacco Group A/S",
     "AXFO.ST": "Axfood AB",
     "BALD-B.ST": "Balder AB",
     "CAST.ST": "Castellum AB",
@@ -151,14 +145,12 @@ tickers = {
     "INVE-B.ST": "Investor AB",
     "JM.ST": "JM AB",
     "KIND-SDB.ST": "Kindred Group plc",
-    "KLOV.ST": "Klövern AB",
     "LIFCO-B.ST": "Lifco AB",
     "NP3.ST": "NP3 Fastigheter AB",
     "PEAB-B.ST": "Peab AB",
     "RATO-B.ST": "Ratos AB",
     "SECT-B.ST": "Sectra AB",
     "SINCH.ST": "Sinch AB",
-    "SWMA.ST": "Swedish Match AB",
     "THULE.ST": "Thule Group AB",
     "TREL-B.ST": "Trelleborg AB",
     "VIT-B.ST": "Vitrolife AB",
@@ -170,15 +162,120 @@ tickers = {
     "SBB-B.ST": "Samhällsbyggnadsbolaget i Norden AB",
     "WIHL.ST": "Wihlborgs Fastigheter AB",
     "GARO.ST": "Garo AB",
-    "ZETB.ST": "ZetaDisplay AB",
     "VOLO.ST": "Volvo AB",
     "AAK.ST": "AAK AB",
-    "STORB.ST": "Storskogen Group AB",
     "G5EN.ST": "G5 Entertainment AB",
-    "QIFAB.ST": "Questerre Energy Corporation",
     "LUMI.ST": "Loomis AB",
     "RESURS.ST": "Resurs Holding AB",
-    "TRIAN.ST": "TriOptima AB"
+    "TIGO": "Millicom International Cellular S.A.",
+    "TIGO-SDB.ST": "Millicom International Cellular S.A. (Swedish)",
+    # Sweden
+    "^OMX": "OMX Stockholm 30",
+    "^OMXSPI": "OMX Stockholm All-Share Index",
+
+    # United States Major Indices
+    "^GSPC": "S&P 500",
+    "^DJI": "Dow Jones Industrial Average",
+    "^IXIC": "NASDAQ Composite",
+    "^NYA": "NYSE Composite (DJ)",
+    "^XAX": "NYSE AMEX Composite Index",
+    "^RUT": "Russell 2000",
+    "^VIX": "CBOE Volatility Index",
+
+    # Additional US Indices
+    "^SP400": "S&P MidCap 400",
+    "^SP600": "S&P SmallCap 600",
+    "^NDX": "NASDAQ-100",
+    "^SOX": "PHLX Semiconductor Index",
+    "^TRAN": "Dow Jones Transportation Average",
+    "^RUA": "Russell 3000",
+    "^RUI": "Russell 1000",
+    "^XMI": "NYSE ARCA Major Market Index",
+
+    # United Kingdom
+    "^FTSE": "FTSE 100",
+
+    # Germany
+    "^GDAXI": "DAX Performance Index",
+
+    # France
+    "^FCHI": "CAC 40",
+
+    # Europe
+    "^STOXX50E": "EURO STOXX 50",
+    "^N100": "Euronext 100 Index",
+    "^BFX": "BEL 20",
+
+    # Russia
+    "MOEX.ME": "Moscow Exchange MICEX-RTS",
+
+    # Hong Kong
+    "^HSI": "Hang Seng Index",
+
+    # Singapore
+    "^STI": "STI Index",
+
+    # Australia
+    "^AXJO": "S&P/ASX 200",
+    "^AORD": "ALL ORDINARIES",
+
+    # India
+    "^BSESN": "S&P BSE SENSEX",
+
+    # Indonesia
+    "^JKSE": "IDX Composite",
+
+    # Malaysia
+    "^KLSE": "FTSE Bursa Malaysia KLCI",
+
+    # New Zealand
+    "^NZ50": "S&P/NZX 50 Index Gross",
+
+    # South Korea
+    "^KS11": "KOSPI Composite Index",
+
+    # Taiwan
+    "^TWII": "TSEC Weighted Index",
+
+    # Canada
+    "^GSPTSE": "S&P/TSX Composite Index",
+
+    # Brazil
+    "^BVSP": "IBOVESPA",
+
+    # Mexico
+    "^MXX": "IPC Mexico",
+
+    # Chile
+    "^IPSA": "S&P IPSA",
+
+    # Argentina
+    "^MERV": "MERVAL",
+
+    # Israel
+    "^TA125.TA": "TA-125",
+
+    # South Africa
+    "^JN0U.JO": "Top 40 USD Net TRI Index",
+
+    # Currencies (US Dollar, British Pound, Euro, Yen, Australian Dollar)
+    "DX-Y.NYB": "US Dollar Index",
+    "^XDB": "British Pound Currency Index",
+    "^XDE": "Euro Currency Index",
+    "^XDN": "Japanese Yen Currency Index",
+    "^XDA": "Australian Dollar Currency Index",
+
+    # China
+    "000001.SS": "SSE Composite Index",
+
+    # Japan
+    "^N225": "Nikkei 225",
+
+    # Add more popular US indices
+    "^DJT": "Dow Jones Transportation Average",
+    "^DJU": "Dow Jones Utility Average",
+    "^DWCF": "Dow Jones U.S. Total Stock Market Index",
+    "^W5000": "Wilshire 5000 Total Market Index"
 }
 
 
@@ -222,12 +319,12 @@ data_type = st.radio(
 
 # Date inputs for the start and end dates
 start_date = st.date_input(
-    "Start Date", value=datetime.today() - timedelta(days=365 * 3))
+    "Start Date", value=datetime.today() - timedelta(days=365 * 4))
+
 end_date = st.date_input("End Date", value=datetime.today())
 
+
 # Function to fetch stock data
-
-
 def fetch_stock_data(tickers, start_date, end_date):
     # Increment the end_date by one day to ensure it's included, as by default Yahoo excludes the last date
     adjusted_end_date = end_date + timedelta(days=1)
@@ -262,7 +359,7 @@ def fetch_stock_data(tickers, start_date, end_date):
 
 
 # Button to fetch data
-if st.button("Download Data"):
+if st.button("Fetch Data"):
     if not all_symbols:
         st.error("Please select or enter at least one stock symbol.")
     else:
@@ -288,26 +385,38 @@ if st.button("Download Data"):
                 st.dataframe(stock_data.tail())
 
                 # Save as Excel using pandas
-                output = BytesIO()
-                try:
-                    stock_data.to_excel(output, index=False,
-                                        sheet_name="Stock Data")
-                    excel_data = output.getvalue()
+                # Save as Excel and CSV using pandas
+                output_excel = BytesIO()
+                output_csv = BytesIO()
 
-                    # Provide download button for Excel
+                try:
+                    # Save as Excel
+                    stock_data.to_excel(
+                        output_excel, index=False, sheet_name="Stock Data")
+                    excel_data = output_excel.getvalue()
+
+                    # Save as CSV
+                    stock_data.to_csv(output_csv, index=False)
+                    csv_data = output_csv.getvalue()
+
+                    # Provide download buttons
                     st.download_button(
                         label="Download Excel File",
                         data=excel_data,
                         file_name="stock_data.xlsx",
                         mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
                     )
+                    st.download_button(
+                        label="Download CSV File",
+                        data=csv_data,
+                        file_name="stock_data.csv",
+                        mime="text/csv",
+                    )
                 except Exception as e:
-                    st.error(f"Failed to save data to Excel: {e}")
+                    st.error(f"Failed to save data: {e}")
             else:
                 st.error(
                     "No valid data fetched. Please check your symbols and date range.")
-
-
 
 
 ####
@@ -352,5 +461,3 @@ print(head(df))
 
 """
 st.code(r_code_snippet, language="r")
-
-
